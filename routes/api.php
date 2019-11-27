@@ -28,3 +28,5 @@ Route::apiResource('modopagos','Api\ModoPagoController');
 Route::apiResource('facturas','Api\FacturaController');
 Route::apiResource('productos','Api\ProductoController');
 Route::apiResource('detalles','Api\DetalleController');
+
+Route::post('auth/register', 'Api\UserController@register');

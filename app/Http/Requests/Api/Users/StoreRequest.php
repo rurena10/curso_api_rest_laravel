@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Api\Producto;
+namespace App\Http\Requests\Api\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
@@ -8,7 +8,9 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 
-class UpdateRequest extends FormRequest
+
+
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,19 +30,21 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'id_categoria' => 'required|integer',
-            'nombre' => 'required|string',
-            'precio' => 'required|integer',
-            'stock' => 'required|integer',
+            "name" => "required",
+            "email" => "required|email",
+            "password" => "required",
+            "repeated_password" => "required|same:password",
         ];
     }
-    protected function failedValidation(Validator $validator){
+
+    protected function failedValidation(Validator $validator)
+    {
         $errors = (new ValidationException($validator))->errors();
         throw new HttpResponseException(response()->json(
             [
-                'success'=>false,
-                'data'=>$errors,
-                'message'=> "Error al validar los campos"
+                'success' => false,
+                'data' => $errors,
+                'message' => "Error al validar los campos"
             ],
             JsonResponse::HTTP_UNPROCESSABLE_ENTITY
         ));
